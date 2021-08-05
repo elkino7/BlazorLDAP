@@ -1,0 +1,11 @@
+﻿@page "/"
+<AuthorizeView>
+    <Authorized Context="AuthenticationState"> @* Se pueden incluir validación de roles o Usuarios*@
+        <h1>Inicio</h1>
+        <h2>Manejo de Equipos de Computo</h2>     
+    </Authorized>
+    <NotAuthorized>
+        <h2>Debe Autenticarse paa ingresar a la aplicación</h2>
+        </NotAuthorized>
+</AuthorizeView>
+
