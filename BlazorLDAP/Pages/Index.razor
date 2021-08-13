@@ -2,7 +2,11 @@
 <AuthorizeView>
     <Authorized Context="AuthenticationState"> @* Se pueden incluir validación de roles o Usuarios*@
         <h1>Inicio</h1>
-        <h2>Manejo de Equipos de Computo</h2>     
+        <h2>Manejo de Equipos de Computo</h2> 
+    <AuthorizeView Roles="col_79965133">
+        <h2>Prueba administración de roles usuario</h2>
+
+    </AuthorizeView>
     </Authorized>
     <NotAuthorized>
         <h2>Debe Autenticarse paa ingresar a la aplicación</h2>

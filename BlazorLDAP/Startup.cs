@@ -33,8 +33,6 @@ namespace BlazorLDAP
             //Nuevos servicios
             services.AddControllers();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();//Cookies para mantener el estado de autenticación
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
