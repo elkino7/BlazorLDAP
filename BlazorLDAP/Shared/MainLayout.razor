@@ -11,7 +11,9 @@
             <AuthorizeView>
                 <Authorized>
                     <span class="ml-md-auto">
-                        USUARIO CONECTADO :     @context.User.Identity.Name                                   
+                        USUARIO CONECTADO :       @context.User.Identity.Name
+                        @*USUARIO CONECTADO :     @context.User.Claims.ToArray().GetValue(1)*@
+                        @*USUARIO CONECTADO :     @context.User.FindFirst("role")?.Value*@
                         <a href="/account/logout">Logout</a>
                     </span>                   
                 </Authorized>
@@ -23,6 +25,25 @@
 
         <div class="content px-4">
             @Body
+            <AuthorizeView>
+                <table>
+                <tr><td>IsAuthenticated</td><td>@context.User.Identity.IsAuthenticated</td></tr>
+                <tr><td>Username</td><td>@context.User.Identity.Name</td></tr>
+                <tr><td>AuthenticationType</td><td>@context.User.Identity.AuthenticationType</td></tr>
+                <tr><td colspan="2"><strong>Claims</strong></td></tr>
+                @foreach (var c in context.User.Claims)
+                {
+                    <tr>
+                        <td>@c.Subject.AuthenticationType</td>
+                        <td>@c.Type</td>
+                        <td>@c.Value</td>
+                    </tr>
+                }
+            </table>
+
+            </AuthorizeView>
+
+
         </div>
     </div>
 </div>

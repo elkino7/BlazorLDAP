@@ -35,23 +35,23 @@ namespace BlazorLDAP.Controllers
                         {
                             string role = "";
                             string title = "";
+                            string name = "";
                             //Comporbamos las propiedades del usuario
                             ResultPropertyCollection fields = result.Properties;
                             foreach (String ldapField in fields.PropertyNames)
                             {
                                 foreach (Object myCollection in fields[ldapField])
                                 {
-                                    if (ldapField == "employeetype")
+                                    if (ldapField == "employeetype"){
                                         role = myCollection.ToString().ToLower();
+                                    }
                                     if (ldapField == "displayname"){
-                                        role = myCollection.ToString().ToUpper();
+                                        name = myCollection.ToString().ToUpper();
                                         //Console.WriteLine("ROL "+ role.ToString());
                                     }
-                                    if (ldapField == "title")
-                                    {
+                                    if (ldapField == "title"){
                                         title = myCollection.ToString().ToUpper();
-                                        Console.WriteLine("CARGO" + title.ToString())
-                                        ;
+                                        Console.WriteLine("CARGO" + title.ToString());
                                     }
                                 }
 
@@ -61,7 +61,7 @@ namespace BlazorLDAP.Controllers
                             //Podríamos obtenerlos de una base de datos.
                             var claims = new[]
                             {
-                                new Claim(ClaimTypes.Name, credentials.Username),
+                                new Claim(ClaimTypes.Name, name),
                                 new Claim(ClaimTypes.Role, role),
                                 new Claim(ClaimTypes.NameIdentifier,title)
                             };
@@ -71,7 +71,7 @@ namespace BlazorLDAP.Controllers
                             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
                             //Generamos la cookie. SignInAsync es un método de extensión del contexto.
-                            await HttpContext.SignInAsync(CookieAuthenticationDefaults .AuthenticationScheme, claimsPrincipal);
+                            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
                             //Redirigimos a la Home
                             return LocalRedirect("/");
